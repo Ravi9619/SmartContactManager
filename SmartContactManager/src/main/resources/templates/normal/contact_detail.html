@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title></title>
+</head>
+<body>
+	<section>
+
+		<div class="card me-3 mx-3" th:if="${modelContact}">
+			<div class="card-body" >
+				<h1 class="text-center">Your Contacts</h1>
+				<div class="container text-center">
+					<img alt="profile photo" class="my_profile_picture"
+						th:src="@{'/image/'+${modelContact.image}}"
+						style="width: 150px; height: 150px;">
+
+					<h3 class="mt-2">
+						<span th:text="${modelContact.name}"></span> ( <span
+							th:text="${modelContact.secondName}"></span> )
+					</h3>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">
+								User <span th:text="${modelContact.cid}" ></span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Email</th>
+								<td><span th:text="${modelContact.email}" ></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Phone</th>
+								<td><span th:text="${modelContact.phone}" ></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Work</th>
+								<td><span th:text="${modelContact.work}" ></span></td>
+							</tr>
+						</tbody>
+						
+					</table>
+					
+					<div class="description">
+							<span th:utext="${modelContact.description}" ></span>
+					</div>
+					<div class="container d-grid gap-2">
+						<button th:onclick="|deleteContact(${modelContact.cid})|" class="btn btn-danger btn-sm ">Delete</button>
+							<form th:action="@{'/user/update-contact/'+${modelContact.cid}}" method="post" class="mt-1 d-grid gap-1" >
+								<button type="submit" class="btn btn-primary btn-sm">Update</button>								
+							</form>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<h1 class="text-center bg-danger text-white" th:unless="${modelContact}" >You don't permission to see another contact</h1>
+		<script>
+			$(document).ready(() => {
+				$(".item").removeClass("active");
+				$("#home-link").addClass("active");
+			});
+		</script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,107 @@
+body {
+	background: #e2e2e2;
+}
+.bg-primary {
+	background: #009688 !important;
+}
+.banner {
+	width:100%;
+	height:90vh;
+	background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)),url(../image/banner.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+	color:white;
+}
+.my-card {
+	padding: 10px;
+	background: #fff;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e2e2e2;
+  height: 100vh;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 380px;
+  border: 1px solid #9C9C9C;
+  background-color: #fff;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -60px;
+}
+
+/* sidebar */
+.sidebar {
+	width:18%;
+	background:white;
+	height:100vh;
+	position: fixed;
+	padding-top: 40px;
+	z-index: 9999999999;
+}
+.sidebar a {
+	display: block;
+	width: 100%;
+	padding: 10px 20px;
+	color:gray;
+	text-decoration: none;
+}
+.sidebar a i {
+	margin-right:5px;
+}
+.sidebar a:hover {
+	background:#e2e2e2;
+}
+.sidebar .divider {
+	height: .5px;
+	width: 100%;
+	background:#e2e2e2;
+	margin-top: 10px;
+}
+.content {
+	margin-left:20%;
+}
+.sidebar .crossBtn {
+	position: absolute;
+	top: 0;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+}
+.my_profile_picture {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit:cover;
+}
+.search-container {
+	position: relative;
+}
+.search-result {
+	position: absolute;
+	background: white;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid black;
+	display: none;
+}
+.active {
+	background: #009688 !important;
+	color: white !important;
+}
+@media only screen and (max-width: 600px) {
+	.sidebar {
+	display: none;
+	width:80%;
+	background:white;
+	height:100vh;
+	position: fixed;
+	padding-top: 20px;
+	}
+}

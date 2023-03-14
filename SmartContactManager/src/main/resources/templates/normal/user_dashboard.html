@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	th:replace="normal/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body my-5">
+					<img alt="profile photo" class="my_profile_picture text-center"
+						th:src="@{'/image/contact_logo.jfif'}"
+						style="width: 150px; height: 150px;">
+				<h3 class="text-center text-italic" >Start Adding your contact on cloud</h3>
+				<div class="container d-grid gap-2">
+					<a th:href="@{/user/add-contact}" class="btn btn-primary text-uppercase mt-2" >Add New Contact</a>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+		$(document).ready(() => {
+			$(".item").removeClass("active");
+			$("#home-link").addClass("active");
+		});
+		</script>
+	</section>
+</body>
+</html>
