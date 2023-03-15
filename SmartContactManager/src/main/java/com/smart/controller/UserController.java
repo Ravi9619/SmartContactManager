@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +42,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import com.razorpay.*;
 
 @Controller
 @RequestMapping("/user")
@@ -309,4 +314,28 @@ public class UserController {
 		return "redirect:/user/index";
 	}
 	
+	//creating order for payment
+	@PostMapping("/create_order")
+	@ResponseBody
+	public String createOrder(@RequestBody Map<String, Object> data) throws RazorpayException
+	{
+		System.out.println(data);
+		int amt = Integer.parseInt(data.get("amount").toString());
+		 
+		var client = new RazorpayClient("rzp_test_HqqBjexmUyHVM9", "IRiGd4Am1Hp9Siu6qVoCxzs0");
+		
+		JSONObject ob = new JSONObject();
+		ob.put("amount", amt*100);
+		ob.put("currency", "INR");
+		ob.put("receipt", "txn_235425");
+		
+		//creating new order
+		Order order = client.orders.create(ob);
+		System.out.println("ORDER "+order);
+		
+		//if want we can save this to database
+		
+		return order.toString();
+		
+	}
 }

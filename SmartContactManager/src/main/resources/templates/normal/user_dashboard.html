@@ -16,11 +16,19 @@
 				<h3 class="text-center text-italic" >Start Adding your contact on cloud</h3>
 				<div class="container d-grid gap-2">
 					<a th:href="@{/user/add-contact}" class="btn btn-primary text-uppercase mt-2" >Add New Contact</a>
+					
+					<hr />
+					<h2 class="my-2" >Donate Us</h2>
+					<input id="payment_field" type="text" class="form-control my-2" placeholder="Enter amount here"/>
+					
+					<div class="container text-center d-grid gap-2">
+						<button onclick="paymentStart()" class="btn btn-success">Checkout</button>
+					</div>
 				</div>
 				</div>
 			</div>
 		</div>
-		
+			
 		<script>
 		$(document).ready(() => {
 			$(".item").removeClass("active");
