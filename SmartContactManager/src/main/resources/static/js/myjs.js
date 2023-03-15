@@ -56,7 +56,7 @@ const paymentStart = () => {
 
     if(amount =='' || amount == null)
     {
-        alert("amount is required");
+        swal("Failed!", "Amount is required", "error");
         return;
     }
 
@@ -85,7 +85,14 @@ const paymentStart = () => {
                         console.log(response.razorpay_order_id);
                         console.log(response.razorpay_signature);
                         console.log('payments successfull !!');
-                        alert("Congrats ! payment successfull");
+                        //alert("Congrats ! payment successfull");
+                        
+                        
+                        updatePaymentOnServer(	response.razorpay_payment_id,
+                        						response.razorpay_order_id,
+                        						"paid")
+                        
+                        swal("Good job!", "Congrats ! payment successfull", "success");
                     },
                     "prefill": {
                         "name": "", //your customer's name
@@ -97,10 +104,10 @@ const paymentStart = () => {
                     },
                     "theme": {
                         "color": "#3399cc"
-                    },
+                    }
                 };
 
-                let rzp = new Razorpay(options);
+                var rzp = new Razorpay(options);
 
                 rzp.on("payment.failed",function(response) {
                     console.log(response.error.code);
@@ -111,6 +118,7 @@ const paymentStart = () => {
                     console.log(response.error.metadata.order_id);
                     console.log(response.error.metadata.payment_id);
                     alert("Oops payment failed")
+                    swal("Payment Failed!", "Oops payment failed", "error");
                 });
 
                 rzp.open();
@@ -120,8 +128,27 @@ const paymentStart = () => {
             //invoked when error
             console.log(error);
             alert("Something went wrong !!")
+        },
+    });
+};
 
-        }
-    })
-
+updatePaymentOnServer = (payment_id,order_id, status) =>
+{
+	$.ajax({
+		url:'/user/update_order',
+        data:JSON.stringify({
+							payment_id:payment_id,
+        					order_id:order_id,
+        					status:status
+        					}),
+        contentType:'application/json',
+        type:'POST',
+        dataType:'json',
+        success:function(response){
+			swal("Good job!", "Congrats ! payment successfull", "success");
+		},
+		error: function(response){
+			swal("Payment Failed!", "Payment is successfull, but it's not reflecting on server", "error");
+		},
+	})
 }
